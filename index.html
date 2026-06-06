@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Haris Azmi | Premium Portfolio</title>
+    
+    <!-- FONT AWESOME UNTUK IKON -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GOOGLE FONTS (Inter & Space Grotesk) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           TEMA: ULTRA PREMIUM DARK EMERALD
+           ========================================= */
+        :root {
+            --bg-base: #02040a; /* Hitam pekat ekstra gelap */
+            --bg-surface: rgba(10, 15, 25, 0.6); 
+            --primary: #10b981; /* Emerald Green */
+            --primary-light: #34d399;
+            --secondary: #0ea5e9; /* Cyan Blue */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(16, 185, 129, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- CINEMATIC NOISE OVERLAY (RAHASIA WEB MAHAL) --- */
+        .noise-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.035;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* --- BACKGROUND ANIMATED GRID & GLOW --- */
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 10%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 80%);
+        }
+        
+        .bg-glow {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05), transparent 40%), 
+                        radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.04), transparent 40%);
+            pointer-events: none;
+        }
+
+        h1, h2, h3, h4, .font-heading { font-family: 'Space Grotesk', sans-serif; }
+
+        /* GRADIENT TEXT YANG LEBIH HIDUP */
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 10%, var(--primary-light) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- PRELOADER (HACKER TERMINAL) --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #02040a; z-index: 999990;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.loaded { opacity: 0; visibility: hidden; }
+        .loader-logo { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 800; color: white; margin-bottom: 20px;}
+        .loader-logo span { color: var(--primary); }
+        .terminal-loader {
+            width: 300px; height: 120px; text-align: left; font-family: monospace; font-size: 0.85rem; color: var(--text-muted);
+            display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .term-line { display: block; margin-bottom: 5px; opacity: 0; animation: fadeInLine 0.1s forwards; }
+        .success-text { color: var(--primary); font-weight: bold; letter-spacing: 2px; font-size: 1.1rem; text-shadow: 0 0 10px var(--primary); margin-top: 10px;}
+        @keyframes fadeInLine { to { opacity: 1; } }
+
+        /* --- NAVBAR MEWAH --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 20px 5%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(2, 4, 10, 0.7);
+            transition: all 0.3s ease;
+        }
+        header.scrolled { padding: 15px 5%; background: rgba(2, 4, 10, 0.9); }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; transition: 0.3s;}
+        .logo:hover { transform: scale(1.05); text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+        .logo span { color: var(--primary); }
+        
+        .nav-links { display: flex; gap: 40px; align-items: center; }
+        .nav-links a { font-size: 0.9rem; color: var(--text-muted); transition: 0.3s; font-weight: 500; position: relative;}
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%;
+            background: var(--primary); transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a:hover::after { width: 100%; box-shadow: 0 0 10px var(--primary); }
+
+        .lang-toggle {
+            display: flex; align-items: center; gap: 8px; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1); padding: 6px 14px; border-radius: 50px;
+            background: rgba(255, 255, 255, 0.02); font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+            transition: 0.3s; backdrop-filter: blur(5px);
+        }
+        .lang-toggle:hover { border-color: var(--primary); background: rgba(16, 185, 129, 0.1); color: white;}
+        .lang-active { color: var(--primary); }
+
+        /* --- LAYOUT --- */
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 130px 0; }
+
+        /* --- HERO SECTION PREMIUM --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 100vh; gap: 60px; padding-top: 150px; }
+        .hero-content { flex: 1; }
+        
+        .role-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
+            border-left: 2px solid var(--primary);
+            padding: 8px 16px; border-radius: 0 50px 50px 0; font-size: 0.85rem; font-weight: 600;
+            color: var(--primary-light); margin-bottom: 30px; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .pulse-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); animation: blink 2s infinite; }
+        
+        .hero h1 { font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 800; line-height: 1.05; margin-bottom: 25px; letter-spacing: -2px; }
+        .hero p { color: var(--text-muted); max-width: 550px; margin-bottom: 40px; font-size: 1.15rem; line-height: 1.7; }
+        
+        /* Tombol Hero */
+        .btn-group { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 50px; }
+        .btn-primary {
+            background: var(--text-main); color: var(--bg-base); padding: 15px 32px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: 0.3s; border: none; display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+        }
+        .btn-primary:hover { background: var(--primary); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.02); color: var(--text-main); padding: 15px 32px; border-radius: 50px; font-weight: 500; font-size: 0.95rem;
+            border: 1px solid var(--border-color); transition: 0.3s; backdrop-filter: blur(10px); display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); transform: translateY(-3px); color: #fff;}
+
+        /* Social Icons 3D Premium */
+        .premium-socials { display: flex; gap: 18px; align-items: center;}
+        .premium-socials span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-right: 10px; }
+        .premium-socials a {
+            width: 48px; height: 48px; display: flex; justify-content: center; align-items: center;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            border-radius: 14px; color: var(--text-muted); font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .premium-socials a:hover {
+            color: #fff; border-color: var(--primary); background: var(--primary);
+            transform: translateY(-8px) rotate(8deg); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        /* --- 3D TILT CARD FOTO --- */
+        .hero-image-wrapper { flex: 1; display: flex; justify-content: flex-end; perspective: 1500px; position: relative; }
+        .hero-image-wrapper::before {
+            content: ''; position: absolute; width: 120%; height: 120%; background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 60%);
+            top: 50%; right: -10%; transform: translateY(-50%); filter: blur(60px); z-index: 0; animation: pulse-card-bg 4s infinite alternate;
+        }
+        @keyframes pulse-card-bg { 0% { opacity: 0.5; transform: translateY(-50%) scale(0.9); } 100% { opacity: 1; transform: translateY(-50%) scale(1.05); } }
+
+        .tilt-card {
+            width: 400px; background: rgba(10, 15, 26, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(255, 255, 255, 0.15); border-left: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 30px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1); 
+            transform-style: preserve-3d; position: relative; z-index: 1;
+        }
+        .tilt-card-inner { transform: translateZ(50px); } 
+        .image-box { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);}
+        .image-box img { width: 100%; height: 460px; object-fit: cover; display: block; transition: transform 0.7s ease; }
+        .tilt-card:hover .image-box img { transform: scale(1.05); }
+        
+        .card-floating-badge {
+            position: absolute; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(2, 4, 10, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1); padding: 15px 24px; border-radius: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .tilt-name { font-weight: 600; font-size: 1.05rem; color: #fff; font-family: 'Space Grotesk', sans-serif;}
+        .status-badge {
+            font-size: 0.75rem; color: var(--primary-light); font-weight: 600; display: flex; align-items: center; gap: 8px; 
+            background: rgba(16, 185, 129, 0.15); padding: 6px 12px; border-radius: 50px; border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* --- SECTION HEADER --- */
+        .section-header { margin-bottom: 70px; text-align: center; }
+        .section-header h2 { font-size: 3.5rem; letter-spacing: -1px; margin-bottom: 15px; }
+
+        /* --- SPOTLIGHT CARDS (INTERACTIVE GLOW) --- */
+        .spotlight-card {
+            position: relative; overflow: hidden;
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: 24px; transition: 0.3s;
+        }
+        .spotlight-card::before {
+            content: ''; position: absolute;
+            top: var(--mouse-y, 0); left: var(--mouse-x, 0);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle closest-side, rgba(16, 185, 129, 0.15), transparent);
+            transform: translate(-50%, -50%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        /* --- ABOUT & STATS --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text { font-size: 1.15rem; line-height: 1.8; color: var(--text-muted); }
+        .about-text p { margin-bottom: 25px; }
+        .about-text strong { color: #fff; font-weight: 600; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .stat-box { padding: 35px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; backdrop-filter: blur(10px);}
+        .stat-number { font-size: 3rem; font-weight: 800; color: var(--text-main); font-family: 'Space Grotesk'; margin-bottom: 5px; line-height: 1; }
+        .stat-label { font-size: 0.85rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;}
+
+        /* --- DUAL INFINITE SCROLLING TECH STACK --- */
+        .marquee-container { width: 100%; overflow: hidden; padding: 20px 0; position: relative; display: flex; flex-direction: column; gap: 20px;}
+        .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 200px; height: 100%; z-index: 2; pointer-events: none;}
+        .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-base), transparent); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-base), transparent); }
+        
+        .marquee-content { display: flex; width: max-content; gap: 20px; }
+        .marquee-left { animation: scroll-left 35s linear infinite; }
+        .marquee-right { animation: scroll-right 35s linear infinite; }
+        
+        .stack-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 18px 35px; border-radius: 16px;
+            display: flex; align-items: center; gap: 15px; width: auto; backdrop-filter: blur(5px); transition: 0.3s;
+        }
+        .stack-item:hover { border-color: var(--primary); background: rgba(16, 185, 129, 0.08); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);}
+        .stack-item i { font-size: 1.8rem; color: var(--text-muted); transition: 0.3s;}
+        .stack-item:hover i { color: var(--primary); }
+        .stack-item span { font-size: 1.05rem; color: var(--text-main); font-weight: 600; letter-spacing: 0.5px;}
+        
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+        @keyframes scroll-right { 0% { transform: translateX(calc(-50% - 10px)); } 100% { transform: translateX(0); } }
+
+        /* --- EXPERIENCE TIMELINE PREMIUM --- */
+        .timeline-container { max-width: 900px; margin: 0 auto; position: relative; }
+        .timeline-container::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 24px;
+            width: 2px; background: linear-gradient(to bottom, var(--primary), rgba(255, 255, 255, 0.05));
+        }
+
+        .timeline-item { position: relative; margin-bottom: 50px; padding-left: 80px; }
+        .timeline-dot {
+            position: absolute; left: 16px; top: 0; width: 18px; height: 18px; border-radius: 50%;
+            background: var(--bg-base); border: 3px solid var(--primary); box-shadow: 0 0 15px var(--primary);
+            z-index: 2; transition: 0.3s;
+        }
+        .timeline-item:hover .timeline-dot { transform: scale(1.3); background: var(--primary); }
+        
+        .timeline-card { padding: 40px; backdrop-filter: blur(12px); z-index: 1;}
+        .time-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;}
+        .time-date { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(16, 185, 129, 0.1); color: var(--primary-light); font-size: 0.8rem; font-weight: 600; border-radius: 50px; letter-spacing: 1px; border: 1px solid rgba(16, 185, 129, 0.2);}
+        .time-title { font-size: 1.6rem; color: #fff; margin-bottom: 5px; }
+        .time-org { font-size: 1.05rem; color: var(--text-muted); display: block; font-weight: 500; }
+        .time-desc { font-size: 1rem; color: #94a3b8; line-height: 1.7; }
+        .time-desc ul { padding-left: 18px; margin-top: 15px; }
+        .time-desc li { margin-bottom: 10px; list-style-type: disc;}
+        .time-desc li strong { color: var(--primary-light); font-weight: 600; }
+
+        /* --- TERMINAL CONTACT --- */
+        .terminal-container {
+            background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            max-width: 950px; margin: 0 auto; backdrop-filter: blur(20px); position: relative;
+        }
+        /* Efek kilap di atas terminal */
+        .terminal-container::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+        
+        .terminal-header { background: rgba(255,255,255,0.03); padding: 15px 25px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .term-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .term-dot.r { background: #ff5f56; } .term-dot.y { background: #ffbd2e; } .term-dot.g { background: #27c93f; }
+        .term-title { margin-left: auto; margin-right: auto; font-size: 0.9rem; color: #71717a; font-family: monospace; }
+
+        .terminal-body { padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .term-status { display: flex; flex-direction: column; gap: 20px; }
+        .status-indicator { display: inline-flex; align-items: center; gap: 12px; font-family: monospace; color: var(--primary); font-size: 1rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);}
+        
+        .contact-card { padding: 20px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(5px); border-radius: 16px;}
+        .contact-card i { font-size: 1.8rem; color: var(--text-main); transition: 0.3s;}
+        .contact-card div { display: flex; flex-direction: column; }
+        .contact-card span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px;}
+        .contact-card a { font-size: 1.1rem; font-weight: 600; color: #fff; font-family: 'Space Grotesk', sans-serif;}
+
+        .term-form h3 { font-family: monospace; font-size: 1.2rem; margin-bottom: 30px; color: var(--primary); letter-spacing: 1px;}
+        .input-group { margin-bottom: 30px; position: relative; }
+        .input-prefix { position: absolute; left: 0; top: 12px; color: var(--primary); font-family: monospace; font-size: 1.1rem;}
+        .term-input {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: #fff; padding: 12px 0 12px 25px; font-family: monospace; outline: none; transition: 0.3s; font-size: 1rem;
+        }
+        .term-input:focus { border-bottom-color: var(--primary); box-shadow: 0 10px 10px -10px rgba(16, 185, 129, 0.2); }
+        .term-input::placeholder { color: #52525b; }
+        .btn-term {
+            background: var(--text-main); color: #000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+            border: none; padding: 16px 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 15px;
+        }
+        .btn-term:hover { background: var(--primary); color: #fff; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); transform: translateY(-3px);}
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-color); margin-top: 100px; font-size: 0.95rem; color: var(--text-muted); }
+
+        /* RESPONSIVE UNTUK HP/IPAD */
+        @media (max-width: 992px) {
+            .about-grid, .terminal-body { grid-template-columns: 1fr; gap: 50px; }
+            .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 130px;}
+            .hero-image-wrapper { justify-content: center; margin-top: 30px; width: 100%;}
+            .btn-group { justify-content: center; }
+            .premium-socials { justify-content: center; }
+            .nav-links { display: none; }
+            .section-header h2 { font-size: 3rem; }
+            .tilt-card { width: 100%; max-width: 420px; }
+            .time-header { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            section { padding: 90px 0; }
+            .hero h1 { font-size: 2.8rem; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center;}
+            .timeline-container::before { left: 15px; }
+            .timeline-item { padding-left: 45px; }
+            .timeline-dot { left: 7px; width: 16px; height: 16px;}
+            .timeline-card { padding: 25px; }
+            .time-title { font-size: 1.3rem; }
+            .terminal-body { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cinematic Noise & Latar Belakang -->
+    <div class="noise-bg"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- PRELOADER / SPLASH SCREEN HACKER STYLE -->
+    <div id="preloader">
+        <div class="loader-logo">azmimharis<span>.</span></div>
+        <div class="terminal-loader" id="terminal-loader">
+            <!-- Teks akan di-generate via JS -->
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header id="main-header">
+        <div class="logo">azmimharis<span>.</span></div>
+        <nav class="nav-links">
+            <a href="#home" data-id="Beranda" data-en="Home">Beranda</a>
+            <a href="#about" data-id="Tentang" data-en="About">Tentang</a>
+            <a href="#experience" data-id="Pengalaman" data-en="Experience">Pengalaman</a>
+            <a href="#contact" data-id="Kontak" data-en="Contact">Kontak</a>
+        </nav>
+        
+        <div class="lang-toggle" onclick="toggleLanguage()">
+            <span id="lang-id" class="lang-opt lang-active">ID</span>
+            <span style="color: var(--text-muted);">/</span>
+            <span id="lang-en" class="lang-opt">EN</span>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                
+                <div class="role-badge">
+                    <div class="pulse-dot"></div>
+                    <span data-id="Informatics Student @ Telkom University" data-en="Informatics Student @ Telkom University">Informatics Student @ Telkom University</span>
+                </div>
+                
+                <h1 class="font-heading">Muhammad <br><span class="text-gradient">Haris Azmi</span></h1>
+                
+                <p data-id="Saya membantu mengorganisir tim dan menciptakan solusi digital kreatif melalui manajemen sistem dan desain multimedia yang fungsional." 
+                   data-en="I help organize teams and create creative digital solutions through functional system management and multimedia design.">
+                   Saya membantu mengorganisir tim dan menciptakan solusi digital kreatif melalui manajemen sistem dan desain multimedia yang fungsional.
+                </p>
+                
+                <div class="btn-group">
+                    <a href="#experience" class="btn-primary">
+                        <span data-id="Jelajahi Portofolio" data-en="Explore Portfolio">Jelajahi Portofolio</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-download"></i> <span data-id="Unduh CV" data-en="Download CV">Unduh CV</span>
+                    </a>
+                </div>
+
+                <div class="premium-socials">
+                    <span data-id="Terhubung:" data-en="Connect:">Terhubung:</span>
+                    <a href="https://www.instagram.com/azmim.haris?igsh=MWhrODFxMHRsbmNyMQ==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/muhammad-haris-azmi-a7b75a18b" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@apalah_98?_r=1&_t=ZS-94Jirxa0ufQ" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <!-- 3D TILT CARD FOTO -->
+            <div class="hero-image-wrapper" data-aos="fade-left" data-aos-duration="1200">
+                <div class="tilt-card js-tilt" data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <div class="tilt-card-inner">
+                        <div class="image-box">
+                            <img src="foto-haris.jpg" alt="Muhammad Haris Azmi">
+                            <div class="card-floating-badge">
+                                <span class="tilt-name">@azmim.haris</span>
+                                <div class="status-badge">
+                                    <div class="status-dot"></div> Online
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="font-heading" data-id="Tentang <span class='text-gradient'>Saya</span>" data-en="About <span class='text-gradient'>Me</span>">Tentang <span class="text-gradient">Saya</span></h2>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text spotlight-card" data-aos="fade-right" style="padding: 40px;">
+                    <p data-id="Saya <strong>Muhammad Haris Azmi</strong>, seorang mahasiswa Informatika dengan dedikasi tinggi di bidang teknologi. Saya memiliki ketertarikan yang mendalam pada pemrograman dan pengembangan sistem." 
+                       data-en="I am <strong>Muhammad Haris Azmi</strong>, an Informatics student with a strong dedication to the field of technology. I have a keen interest in programming and system development.">
+                       Saya <strong>Muhammad Haris Azmi</strong>, seorang mahasiswa Informatika dengan dedikasi tinggi di bidang teknologi. Saya memiliki ketertarikan yang mendalam pada pemrograman dan pengembangan sistem.
+                    </p>
+                    <p data-id="Saya berkomitmen untuk terus meningkatkan keterampilan teknis dan analitis saya guna memberikan solusi yang efektif dan berdampak, baik dalam <strong>kepemimpinan organisasi</strong> maupun <strong>produksi media kreatif</strong>." 
+                       data-en="I am committed to continuously enhancing my technical and analytical skills to deliver effective and impactful solutions, both in <strong>organizational leadership</strong> and <strong>creative media production</strong>.">
+                       Saya berkomitmen untuk terus meningkatkan keterampilan teknis dan analitis saya guna memberikan solusi yang efektif dan berdampak, baik dalam <strong>kepemimpinan organisasi</strong> maupun <strong>produksi media kreatif</strong>.
+                    </p>
+                </div>
+                
+                <div class="stats-grid" data-aos="fade-left">
+                    <div class="stat-box spotlight-card">
+                        <div class="stat-number">2023</div>
+                        <div class="stat-label" data-id="Angkatan" data-en="Batch">Angkatan</div>
+                    </div>
+                    <div class="stat-box spotlight-card">
+                        <div class="stat-number">IF</div>
+                        <div class="stat-label" data-id="Informatika" data-en="Informatics">Informatika</div>
+                    </div>
+                    <div class="stat-box spotlight-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label" data-id="Organisasi" data-en="Organizations">Organisasi</div>
+                    </div>
+                    <div class="stat-box spotlight-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label" data-id="Dedikasi" data-en="Dedication">Dedikasi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DUAL TECH STACK MARQUEE -->
+        <section style="padding: 40px 0;">
+            <div class="section-header text-center" data-aos="fade-up" style="margin-bottom: 40px;">
+                <h2 class="font-heading" data-id="Keahlian & <span class='text-gradient'>Alat</span>" data-en="Skills & <span class='text-gradient'>Tools</span>">Keahlian & <span class="text-gradient">Alat</span></h2>
+            </div>
+            
+            <!-- Baris 1: Ke Kiri -->
+            <div class="marquee-container" data-aos="fade-up">
+                <div class="marquee-content marquee-left">
+                    <div class="stack-item"><i class="fab fa-html5"></i><span>HTML & CSS</span></div>
+                    <div class="stack-item"><i class="fab fa-bootstrap"></i><span>Bootstrap 5</span></div>
+                    <div class="stack-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                    <div class="stack-item"><i class="fab fa-python"></i><span>Python</span></div>
+                    <div class="stack-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                    <div class="stack-item"><i class="fab fa-figma"></i><span>Figma</span></div>
+                    
+                    <div class="stack-item"><i class="fab fa-html5"></i><span>HTML & CSS</span></div>
+                    <div class="stack-item"><i class="fab fa-bootstrap"></i><span>Bootstrap 5</span></div>
+                    <div class="stack-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                    <div class="stack-item"><i class="fab fa-python"></i><span>Python</span></div>
+                    <div class="stack-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                    <div class="stack-item"><i class="fab fa-figma"></i><span>Figma</span></div>
+                </div>
+            </div>
+
+            <!-- Baris 2: Ke Kanan -->
+            <div class="marquee-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="marquee-content marquee-right">
+                    <div class="stack-item"><i class="fas fa-video"></i><span>Premiere Pro</span></div>
+                    <div class="stack-item"><i class="fas fa-mobile-alt"></i><span>CapCut</span></div>
+                    <div class="stack-item"><i class="fas fa-users"></i><span>Leadership</span></div>
+                    <div class="stack-item"><i class="fas fa-bullhorn"></i><span>Social Media</span></div>
+                    <div class="stack-item"><i class="fas fa-camera"></i><span>Photography</span></div>
+                    <div class="stack-item"><i class="fas fa-pen-nib"></i><span>Copywriting</span></div>
+                    
+                    <div class="stack-item"><i class="fas fa-video"></i><span>Premiere Pro</span></div>
+                    <div class="stack-item"><i class="fas fa-mobile-alt"></i><span>CapCut</span></div>
+                    <div class="stack-item"><i class="fas fa-users"></i><span>Leadership</span></div>
+                    <div class="stack-item"><i class="fas fa-bullhorn"></i><span>Social Media</span></div>
+                    <div class="stack-item"><i class="fas fa-camera"></i><span>Photography</span></div>
+                    <div class="stack-item"><i class="fas fa-pen-nib"></i><span>Copywriting</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE TIMELINE SECTION -->
+        <section id="experience">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="font-heading" data-id="Pengalaman <span class='text-gradient'>Terpilih</span>" data-en="Selected <span class='text-gradient'>Experience</span>">Pengalaman <span class="text-gradient">Terpilih</span></h2>
+            </div>
+
+            <div class="timeline-container">
+                <!-- Item 1 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Kepala Departemen PSDM" data-en="Head of HRD Department">Kepala Departemen PSDM</h3>
+                                <span class="time-org" data-id="Badan Mentoring - Telkom University" data-en="Mentoring Board - Telkom University">Badan Mentoring - Telkom University</span>
+                            </div>
+                            <span class="time-date"><i class="fas fa-circle text-primary" style="font-size:8px; animation: blink 2s infinite;"></i> <span data-id="SEKARANG" data-en="PRESENT">SEKARANG</span></span>
+                        </div>
+                        <div class="time-desc">
+                            <ul>
+                                <li data-id="Bertanggung jawab dalam pengelolaan <strong>Sumber Daya Manusia</strong>, kaderisasi, serta pengembangan potensi mentor dan mentee di lingkungan kampus." data-en="Responsible for <strong>Human Resources</strong> management, regeneration, and developing the potential of mentors and mentees in the campus environment.">Bertanggung jawab dalam pengelolaan <strong>Sumber Daya Manusia</strong>, kaderisasi, serta pengembangan potensi mentor dan mentee di lingkungan kampus.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Tim Media FKSB" data-en="FKSB Media Team">Tim Media FKSB</h3>
+                                <span class="time-org" data-id="Badan Mentoring - Telkom University" data-en="Mentoring Board - Telkom University">Badan Mentoring - Telkom University</span>
+                            </div>
+                            <span class="time-date"><i class="fas fa-circle text-primary" style="font-size:8px; animation: blink 2s infinite;"></i> <span data-id="SEKARANG" data-en="PRESENT">SEKARANG</span></span>
+                        </div>
+                        <div class="time-desc">
+                            <ul>
+                                <li data-id="Mengelola <strong>publikasi dan dokumentasi</strong> kegiatan mentoring khusus untuk Fakultas Komunikasi dan Bisnis." data-en="Managing <strong>publication and documentation</strong> of mentoring activities specifically for the Faculty of Communication and Business.">Mengelola <strong>publikasi dan dokumentasi</strong> kegiatan mentoring khusus untuk Fakultas Komunikasi dan Bisnis.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Tim KDRP" data-en="KDRP Team">Tim KDRP</h3>
+                                <span class="time-org">Al-Fath - Telkom University</span>
+                            </div>
+                            <span class="time-date" style="background: rgba(255,255,255,0.05); color: #fff; border:none;">2023</span>
+                        </div>
+                        <div class="time-desc">
+                            <ul>
+                                <li data-id="Aktif sebagai tim <strong>Kaderisasi Dakwah dan Rumah Peradaban (KDRP)</strong> di Lembaga Dakwah Kampus Al-Fath." data-en="Active as the <strong>Da'wah Regeneration and Civilization House (KDRP)</strong> team at Al-Fath Campus Da'wah Institute.">Aktif sebagai tim <strong>Kaderisasi Dakwah dan Rumah Peradaban (KDRP)</strong> di Lembaga Dakwah Kampus Al-Fath.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Ketua Bidang Dokum & Media" data-en="Head of Doc & Media Division">Ketua Bidang Dokum & Media</h3>
+                                <span class="time-org">OSIS AFISME</span>
+                            </div>
+                            <span class="time-date" style="background: rgba(255,255,255,0.05); color: #fff; border:none;">2022 - 2023</span>
+                        </div>
+                        <div class="time-desc">
+                            <ul>
+                                <li data-id="Kandidat calon Ketua OSIS Periode 2022-2023." data-en="Candidate for OSIS Chairman 2022-2023 Period.">Kandidat calon Ketua OSIS Periode 2022-2023.</li>
+                                <li data-id="Bertanggung jawab atas <strong>seluruh kegiatan tim dokumentasi</strong> OSIS Afisme." data-en="Responsible for <strong>all OSIS Afisme documentation team activities</strong>.">Bertanggung jawab atas <strong>seluruh kegiatan tim dokumentasi</strong> OSIS Afisme.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Tim Dokumentasi & Editing" data-en="Documentation & Editing Team">Tim Dokumentasi & Editing</h3>
+                                <span class="time-org">PENGAMAT NEGRI</span>
+                            </div>
+                            <span class="time-date" style="background: rgba(255,255,255,0.05); color: #fff; border:none;">AGUSTUS 2022</span>
+                        </div>
+                        <div class="time-desc">
+                            <p style="margin-bottom: 15px;" data-id="Platform media berslogan <span style='color:var(--primary); font-weight:600;'>#diambukanpilih</span> untuk menyuarakan keadilan sosial." data-en="Media platform with the slogan <span style='color:var(--primary); font-weight:600;'>#diambukanpilih</span> to voice social justice.">Platform media berslogan <span style="color:var(--primary); font-weight:600;">#diambukanpilih</span> untuk menyuarakan keadilan sosial.</p>
+                            <ul>
+                                <li data-id="Anggota Tim dokumentasi kegiatan pengamat negri." data-en="Member of the documentation team.">Anggota Tim dokumentasi kegiatan pengamat negri.</li>
+                                <li data-id="Mendokumentasikan Kegiatan Pengamat Negri." data-en="Documenting activities.">Mendokumentasikan Kegiatan Pengamat Negri.</li>
+                                <li data-id="Tim Editing Video Kegiatan Pengamat Negri." data-en="Video Editing Team.">Tim Editing Video Kegiatan Pengamat Negri.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Item 6 -->
+                 <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card spotlight-card">
+                        <div class="time-header">
+                            <div>
+                                <h3 class="font-heading time-title" data-id="Anggota Bidang Dokum & Media" data-en="Doc & Media Division Member">Anggota Bidang Dokum & Media</h3>
+                                <span class="time-org">OSIS AFISME</span>
+                            </div>
+                            <span class="time-date" style="background: rgba(255,255,255,0.05); color: #fff; border:none;">2021 - 2022</span>
+                        </div>
+                        <div class="time-desc">
+                            <ul>
+                                <li data-id="Anggota Bidang Dokumentasi dan Media OSIS Al-Fityan School Medan." data-en="Member of the Documentation and Media Division.">Anggota Bidang Dokumentasi dan Media OSIS Al-Fityan School Medan.</li>
+                                <li data-id="Bertanggung Jawab Mengerjakan <strong>Media Sosial</strong> OSIS Afisme." data-en="Responsible for managing <strong>Social Media</strong>.">Bertanggung Jawab Mengerjakan <strong>Media Sosial</strong> OSIS Afisme.</li>
+                                <li data-id="Membuat Cuplikan Video untuk Instagram, Youtube, dan Tiktok." data-en="Creating short videos for Instagram, Youtube, and TikTok.">Membuat Cuplikan Video untuk Instagram, Youtube, dan Tiktok.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMINAL CONTACT SECTION -->
+        <section id="contact">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h2 class="font-heading" data-id="Mari <span class='text-gradient'>Terhubung</span>" data-en="Let's <span class='text-gradient'>Connect</span>">Mari <span class="text-gradient">Terhubung</span></h2>
+            </div>
+
+            <div class="terminal-container" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="terminal-header">
+                    <div class="term-dot r"></div>
+                    <div class="term-dot y"></div>
+                    <div class="term-dot g"></div>
+                    <div class="term-title">haris@portfolio:~</div>
+                </div>
+                
+                <div class="terminal-body">
+                    <!-- Left: Status & Links -->
+                    <div class="term-status">
+                        <div class="status-indicator">
+                            <i class="fas fa-circle" style="font-size: 8px; animation: blink 1s infinite;"></i>
+                            SYSTEM STATUS: ONLINE
+                        </div>
+
+                        <a href="https://www.instagram.com/azmim.haris?igsh=MWhrODFxMHRsbmNyMQ==" target="_blank" class="contact-card spotlight-card">
+                            <i class="fab fa-instagram"></i>
+                            <div>
+                                <span>Instagram</span>
+                                <span>@azmim.haris</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@apalah_98?_r=1&_t=ZS-94Jirxa0ufQ" target="_blank" class="contact-card spotlight-card">
+                            <i class="fab fa-tiktok"></i>
+                            <div>
+                                <span>TikTok</span>
+                                <span>@apalah_98</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/muhammad-haris-azmi-a7b75a18b" target="_blank" class="contact-card spotlight-card">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <span>LinkedIn</span>
+                                <span>Haris Azmi</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="term-form">
+                        <h3><i class="fas fa-terminal"></i> INITIATE_CONNECTION</h3>
+                        <div class="input-group">
+                            <span class="input-prefix">~</span>
+                            <input type="text" class="term-input lang-placeholder" data-id-ph="ID Pengirim / Nama" data-en-ph="Sender ID / Name" placeholder="ID Pengirim / Nama">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">~</span>
+                            <input type="email" class="term-input lang-placeholder" data-id-ph="Frekuensi Email" data-en-ph="Email Frequency" placeholder="Frekuensi Email">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">~</span>
+                            <input type="text" class="term-input lang-placeholder" data-id-ph="Pesan Transmisi..." data-en-ph="Transmission Message..." placeholder="Pesan Transmisi...">
+                        </div>
+                        <a href="mailto:mharisazmi6@gmail.com" style="text-decoration:none;">
+                            <button class="btn-term" data-id="EXECUTE [KIRIM]" data-en="EXECUTE [SEND]">EXECUTE [KIRIM]</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Muhammad Haris Azmi. <span data-id="Dirancang dengan Logika & Estetika." data-en="Designed with Logic & Aesthetics.">Dirancang dengan Logika & Estetika.</span></p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <script>
+        // SCRIPT TRANSLASI BAHASA (ID/EN)
+        let currentLang = 'id';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            
+            document.getElementById('lang-id').classList.toggle('lang-active', currentLang === 'id');
+            document.getElementById('lang-en').classList.toggle('lang-active', currentLang === 'en');
+            
+            document.querySelectorAll('[data-id]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+
+            document.querySelectorAll('.lang-placeholder').forEach(el => {
+                el.placeholder = el.getAttribute(`data-${currentLang}-ph`);
+            });
+        }
+
+        // SCRIPT PRELOADER SPLASH SCREEN (HACKER TYPING EFFECT)
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            const termLoader = document.getElementById('terminal-loader');
+            
+            const lines = [
+                "> INITIALIZING SYSTEM...",
+                "> LOADING ASSETS...",
+                "> CONNECTING TO SERVER...",
+                "<span class='success-text'>> ACCESS GRANTED.</span>"
+            ];
+            
+            let i = 0;
+            function typeLine() {
+                if(i < lines.length) {
+                    const span = document.createElement('span');
+                    span.className = 'term-line';
+                    span.innerHTML = lines[i];
+                    termLoader.appendChild(span);
+                    i++;
+                    setTimeout(typeLine, 300);
+                } else {
+                    setTimeout(() => {
+                        preloader.classList.add('loaded');
+                        AOS.init({ duration: 800, once: true, offset: 30 });
+                    }, 800);
+                }
+            }
+            
+            setTimeout(typeLine, 200);
+
+            if (window.innerWidth > 992) {
+                VanillaTilt.init(document.querySelectorAll(".js-tilt"));
+            }
+        });
+
+        // EFEK SPOTLIGHT GLOW PADA KARTU (MAGIC EFFECT)
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
