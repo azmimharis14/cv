@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Haris Azmi | Premium Portfolio</title>
     
+    <!-- FONT AWESOME UNTUK IKON -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GOOGLE FONTS (Inter & Space Grotesk) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- AOS ANIMATION -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -323,7 +326,7 @@
 
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-color); margin-top: 100px; font-size: 0.95rem; color: var(--text-muted); }
 
-        /* RESPONSIVE UNTUK HP/IPAD */
+        /* RESPONSIVE UNTUK HP/IPAD (ANTI AUTO-ZOOM PADA DEVICE SCREEN KECIL) */
         @media (max-width: 992px) {
             .about-grid, .terminal-body { grid-template-columns: 1fr; gap: 50px; }
             .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 130px;}
@@ -334,6 +337,10 @@
             .section-header h2 { font-size: 3rem; }
             .tilt-card { width: 100%; max-width: 420px; }
             .time-header { flex-direction: column; }
+            
+            /* Mencegah auto-zoom Safari/iOS dengan memaksa font input minimal 16px */
+            .term-input { font-size: 16px !important; padding-left: 28px; }
+            .input-prefix { font-size: 16px !important; top: 12px; }
         }
 
         @media (max-width: 480px) {
@@ -352,16 +359,20 @@
 </head>
 <body>
 
+    <!-- Cinematic Noise & Latar Belakang -->
     <div class="noise-bg"></div>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
+    <!-- PRELOADER / SPLASH SCREEN HACKER STYLE -->
     <div id="preloader">
         <div class="loader-logo">azmimharis<span>.</span></div>
         <div class="terminal-loader" id="terminal-loader">
-            </div>
+            <!-- Teks akan di-generate via JS -->
+        </div>
     </div>
 
+    <!-- Header / Navbar -->
     <header id="main-header">
         <div class="logo">azmimharis<span>.</span></div>
         <nav class="nav-links">
@@ -380,6 +391,7 @@
 
     <main class="container">
         
+        <!-- HERO SECTION -->
         <section id="home" class="hero">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
                 
@@ -413,6 +425,7 @@
                 </div>
             </div>
 
+            <!-- 3D TILT CARD FOTO -->
             <div class="hero-image-wrapper" data-aos="fade-left" data-aos-duration="1200">
                 <div class="tilt-card js-tilt" data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
                     <div class="tilt-card-inner">
@@ -430,6 +443,7 @@
             </div>
         </section>
 
+        <!-- ABOUT ME SECTION -->
         <section id="about">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="font-heading" data-id="Tentang <span class='text-gradient'>Saya</span>" data-en="About <span class='text-gradient'>Me</span>">Tentang <span class="text-gradient">Saya</span></h2>
@@ -468,11 +482,13 @@
             </div>
         </section>
 
+        <!-- DUAL TECH STACK MARQUEE -->
         <section style="padding: 40px 0;">
             <div class="section-header text-center" data-aos="fade-up" style="margin-bottom: 40px;">
                 <h2 class="font-heading" data-id="Keahlian & <span class='text-gradient'>Alat</span>" data-en="Skills & <span class='text-gradient'>Tools</span>">Keahlian & <span class="text-gradient">Alat</span></h2>
             </div>
             
+            <!-- Baris 1: Ke Kiri -->
             <div class="marquee-container" data-aos="fade-up">
                 <div class="marquee-content marquee-left">
                     <div class="stack-item"><i class="fab fa-html5"></i><span>HTML & CSS</span></div>
@@ -491,6 +507,7 @@
                 </div>
             </div>
 
+            <!-- Baris 2: Ke Kanan -->
             <div class="marquee-container" data-aos="fade-up" data-aos-delay="100">
                 <div class="marquee-content marquee-right">
                     <div class="stack-item"><i class="fas fa-video"></i><span>Premiere Pro</span></div>
@@ -510,12 +527,14 @@
             </div>
         </section>
 
+        <!-- EXPERIENCE TIMELINE SECTION -->
         <section id="experience">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="font-heading" data-id="Pengalaman <span class='text-gradient'>Terpilih</span>" data-en="Selected <span class='text-gradient'>Experience</span>">Pengalaman <span class="text-gradient">Terpilih</span></h2>
             </div>
 
             <div class="timeline-container">
+                <!-- Project 1 -->
                 <div class="timeline-item" data-aos="fade-up">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card spotlight-card">
@@ -537,6 +556,7 @@
                     </div>
                 </div>
 
+                <!-- Project 2 -->
                 <div class="timeline-item" data-aos="fade-up">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card spotlight-card">
@@ -557,6 +577,7 @@
                     </div>
                 </div>
 
+                <!-- Org 1 -->
                 <div class="timeline-item" data-aos="fade-up">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card spotlight-card">
@@ -576,6 +597,7 @@
                     </div>
                 </div>
 
+                <!-- Org 2 -->
                 <div class="timeline-item" data-aos="fade-up">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card spotlight-card">
@@ -588,12 +610,13 @@
                         </div>
                         <div class="time-desc">
                             <ul>
-                                <li data-id="Berkolaborasi dalam tim yang terdiri dari 7 anggota untuk mengelola strategi publikasi, konten media sosial, dan dokumentasi semua kegiatan mentoring di Fakultas Komunikasi dan Bisnis." data-en="Collaborated within a team of 7 members to manage publication strategies, social media content, and documentation of all mentoring activities within the Faculty of Communication and Business.">Berkolaborasi dalam tim yang terdiri dari 7 anggota untuk mengelola strategi publikasi, konten media sosial, dan dokumentasi semua kegiatan mentoring di Fakultas Komunikasi dan Bisnis.</li>
+                                <li data-id="Berkolaborasi dalam tim yang terdiri dari 7 anggota untuk mengelola strategi publikasi, konten media sosial, dan dokumentasi semua kegiatan mentoring di Fakultas Komunikasi dan Bisnis." data-en="Collaborated within a team of 7 members to manage publication strategies, social media content, and documentation of all mentoring activities within the Faculty of Communication and Business.">Berkolaborasi dalam tim yang terdiri dari 7 anggota untuk mengelola strategi publikasi, konten media sosial, dan dokumentasi semua kegiatan mentoring di Fakultas Komunikasi dan Bisnis."</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Org 3 -->
                 <div class="timeline-item" data-aos="fade-up">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card spotlight-card">
@@ -614,6 +637,7 @@
             </div>
         </section>
 
+        <!-- TERMINAL CONTACT SECTION -->
         <section id="contact">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2 class="font-heading" data-id="Mari <span class='text-gradient'>Terhubung</span>" data-en="Let's <span class='text-gradient'>Connect</span>">Mari <span class="text-gradient">Terhubung</span></h2>
@@ -628,6 +652,7 @@
                 </div>
                 
                 <div class="terminal-body">
+                    <!-- Left: Status & Links -->
                     <div class="term-status">
                         <div class="status-indicator">
                             <i class="fas fa-circle" style="font-size: 8px; animation: blink 1s infinite;"></i>
@@ -659,6 +684,7 @@
                         </a>
                     </div>
 
+                    <!-- Right: Form -->
                     <div class="term-form">
                         <h3><i class="fas fa-terminal"></i> INITIATE_CONNECTION</h3>
                         <div class="input-group">
@@ -687,6 +713,7 @@
         <p>&copy; 2026 Muhammad Haris Azmi. <span data-id="Dirancang dengan Logika & Estetika." data-en="Designed with Logic & Aesthetics.">Dirancang dengan Logika & Estetika.</span></p>
     </footer>
 
+    <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     
