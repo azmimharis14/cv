@@ -27,23 +27,26 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* FIX SAFARI AUTO ZOOM & RENDERING BUG */
-        html { 
-            scroll-behavior: smooth;
+        /* FIX TOTAL OVERFLOW & AUTO ZOOM SAFARI */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            position: relative;
+        }
+
+        html { 
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-base);
             color: var(--text-main);
-            overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
         }
 
         /* --- CINEMATIC NOISE OVERLAY (RAHASIA WEB MAHAL) --- */
@@ -132,8 +135,8 @@
         .lang-active { color: var(--primary); }
 
         /* --- LAYOUT --- */
-        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 130px 0; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        section { padding: 130px 0; overflow: hidden; position: relative; }
 
         /* --- HERO SECTION PREMIUM --- */
         .hero { display: flex; align-items: center; justify-content: space-between; min-height: 100vh; gap: 60px; padding-top: 150px; }
@@ -317,10 +320,11 @@
         .term-form h3 { font-family: monospace; font-size: 1.2rem; margin-bottom: 30px; color: var(--primary); letter-spacing: 1px;}
         .input-group { margin-bottom: 30px; position: relative; }
         .input-prefix { position: absolute; left: 0; top: 12px; color: var(--primary); font-family: monospace; font-size: 1.1rem;}
+        
         .term-input {
             width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
             color: #fff; padding: 12px 0 12px 25px; font-family: monospace; outline: none; transition: 0.3s; font-size: 1rem;
-            /* Anti zoom Safari desktop & mobile */
+            /* Mencegah zoom paksa Safari desktop & mobile */
             -webkit-text-size-adjust: none;
             text-size-adjust: none;
         }
@@ -334,21 +338,24 @@
 
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-color); margin-top: 100px; font-size: 0.95rem; color: var(--text-muted); }
 
-        /* RESPONSIVE UNTUK HP/IPAD (ANTI AUTO-ZOOM PADA DEVICE SCREEN KECIL) */
+        /* RESPONSIVE UNTUK HP/IPAD (LOCK OVERFLOW TOTAL & SQUASH BOX UNTUK SAFARI) */
         @media (max-width: 992px) {
             .about-grid, .terminal-body { grid-template-columns: 1fr; gap: 50px; }
-            .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 130px;}
-            .hero-image-wrapper { justify-content: center; margin-top: 30px; width: 100%;}
+            .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 130px; }
+            .hero-image-wrapper { justify-content: center; margin-top: 30px; width: 100%; max-width: 100%; overflow: hidden; }
             .btn-group { justify-content: center; }
             .premium-socials { justify-content: center; }
             .nav-links { display: none; }
             .section-header h2 { font-size: 3rem; }
-            .tilt-card { width: 100%; max-width: 420px; }
+            .tilt-card { width: 100%; max-width: 100%; }
             .time-header { flex-direction: column; }
             
-            /* Mencegah auto-zoom Safari/iOS dengan memaksa font input minimal 16px */
-            .term-input { font-size: 16px !important; padding-left: 28px; }
+            /* Kunci ukuran input Safari iOS */
+            .term-input { font-size: 16px !important; padding-left: 28px; width: 100% !important; max-width: 100%; }
             .input-prefix { font-size: 16px !important; top: 12px; }
+            
+            /* Reduksi spotlight blur untuk mencegah overflow rendering bug pada Safari */
+            .spotlight-card::before { width: 250px; height: 250px; }
         }
 
         @media (max-width: 480px) {
@@ -361,7 +368,7 @@
             .timeline-dot { left: 7px; width: 16px; height: 16px;}
             .timeline-card { padding: 25px; }
             .time-title { font-size: 1.3rem; }
-            .terminal-body { padding: 30px; }
+            .terminal-body { padding: 25px 20px; }
         }
     </style>
 </head>
